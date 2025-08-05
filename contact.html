@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: calc(100% - 22px); /* Account for padding and border */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 100px;
+        }
+        input[type="submit"] {
+            background-color: #28a745; /* Green submit button */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .error-message {
+            color: rgb(95, 196, 162);
+            font-size: 0.85em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CAT2 Contact Form (Q5)</h1>
+        <form id="contactForm" action="submit_contact.php" method="POST" onsubmit="return validateForm()">
+            <label for="name">Input Name:</label>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error-message"></span>
+
+            <label for="email">input Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error-message"></span>
+
+            <label for="subject">Enter Subject:</label>
+            <input type="text" id="subject" name="subject">
+            <span id="subjectError" class="error-message"></span>
+
+            <label for="message">Write Your Message Down:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+            <span id="messageError" class="error-message"></span>
+
+            <input type="submit" value="Send Message">
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let name = document.getElementById('name').value.trim();
+            let email = document.getElementById('email').value.trim();
+            let message = document.getElementById('message').value.trim();
+            // Subject is optional, so no mandatory check for it.
+
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('messageError').textContent = '';
+            document.getElementById('subjectError').textContent = ''; // Clear for subject too
+
+            // Validate Name
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            // Validate Email
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required.';
+                isValid = false;
+            } else {
+                // Basic email format check
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('emailError').textContent = 'Invalid email format.';
+                    isValid = false;
+                }
+            }
+
+            // Validate Message
+            if (message === '') {
+                document.getElementById('messageError').textContent = 'Message is required.';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
